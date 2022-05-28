@@ -1,6 +1,5 @@
 import sqlite3 as sql
 
-
 class Conexao:
 
     def __init__(self):

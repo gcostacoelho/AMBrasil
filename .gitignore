@@ -1,3 +1,7 @@
+#Virtual environment
 env/
+#Others
 .vscode/
 __pycache__/
+#Não implementado ainda
+Api/
