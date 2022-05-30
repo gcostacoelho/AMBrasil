@@ -4,6 +4,7 @@ from os import system
 from time import sleep
 import colorama
 from colorama import Fore
+
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.users import Usuario, Ong
@@ -29,62 +30,100 @@ def limpar():
     sleep(1)
     limpar()
 
-def menu():
-    def cabecalho():
-        print(Fore.GREEN + 25 * '_')
-        print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
-        print(Fore.GREEN + 25 * '-')
+#Funções do programa
 
-    def user():
-        limpar()
-        print('Bem vindo usuário')
-        while True:
-            op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar denúncia\n\t2-Ver campanhas de doação\n"))
-            if op == 0: break
-            elif op == 1: 
-                print('Chama inserir denúncia')
-                break
-            elif op == 2:
-                print('Chama view de campanhas')
-                break
-            else:
-                print(Fore.RED + 'Não tenho essa opção disponível')
-                print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
-                sleep(2)
-                limpar()
-
-    def ong():
-        limpar()
-        print('Bem vindo ONG')
-        while True:
-            op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n"))
-            if op == 0: break
-            elif op == 1: 
-                print('Chama inserir campanha')
-                break
-            elif op == 2:
-                print('Chama view de campanhas')
-                break
-            else:
-                print(Fore.RED + 'Não tenho essa opção disponível')
-                print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
-                sleep(2)
-                limpar()
-
-    limpar()
-    cabecalho()
-    sleep(3)
+def login():
     limpar()
     print(Fore.CYAN + BOLD + '-----------Login------------')
     tipo = int(input('Informe o seu tipo de usuário\n\n\t0-Fechar aplicativo\n\t1-Usuário comum\n\t2-ONG\n'))
-
-    if tipo == 0: print('Até logo')
-    elif tipo==1: user()
-    elif tipo == 2: ong()
     
+    if tipo == 0: return 'sair'
+
+    if tipo == 1:
+        limpar()
+        user = input('Informe o seu CPF: ')
+        valido = Usuario.search(user)
+        
+        if valido: return 'comum'
+        else: 
+            print(Fore.RED + 'Usuário não encontrado na base de dados')
+            input()
+    elif tipo == 2:
+        limpar()
+        user = input('Informe o CNPJ da ONG: ')
+        valido = Ong.search(user)
+        
+        if valido: return 'ong'
+        else: 
+            print(Fore.RED + 'Ong não encontrada na base de dados')
+            input()
+
+def menuUser():
+    limpar()
+    print('Bem vindo usuário')
+    while True:
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar denúncia\n\t2-Ver campanhas de doação\n"))
+        if op == 0: return op
+        elif op == 1: return op
+        elif op == 2: return op
+        else:
+            print(Fore.RED + 'Não tenho essa opção disponível')
+            print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
+            sleep(2)
+            limpar()
+
+def menuOng():
+    limpar()
+    print('Bem vindo ONG')
+    while True:
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n"))
+        if op == 0: return op
+        elif op == 1: return op
+        elif op == 2: return op
+        else:
+            print(Fore.RED + 'Não tenho essa opção disponível')
+            print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
+            sleep(2)
+            limpar()
 
 if __name__ == '__main__':
     criar_conexao()
-    menu()
+    limpar()
+    print(Fore.GREEN + 25 * '-')
+    print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
+    print(Fore.GREEN + 25 * '-')
+    sleep(3)
+
+    while True:
+        login = login()
+        if login == 'sair': break
+        
+        elif login == 'comum':
+            while True:
+                opcao = menuUser()
+                if opcao == 0: break
+                elif opcao == 1: 
+                    print('Chama inserir denúncia')
+                    input()
+                elif opcao == 2: 
+                    print('Chama view de campanhas')
+                    input()
+
+        elif login == 'ong':
+            while True:
+                opcao = menuOng()
+                if opcao == 0: break
+                elif opcao == 1: 
+                    print('Chama inserir campanha')
+                    input()
+                elif opcao == 2: 
+                    print('Chama view de campanhas')
+                    input()
+        break
+    
+    print('Obrigado por usar o '+ Fore.GREEN + 'AMBrasil')
+
+
+
 
     
