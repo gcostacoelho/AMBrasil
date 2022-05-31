@@ -1,5 +1,3 @@
-from ast import Return
-from distutils.spawn import find_executable
 from colorama import Fore
 from .conexao import Conexao
 from sqlite3 import Error
