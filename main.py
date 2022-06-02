@@ -4,6 +4,7 @@ from os import system
 from time import sleep
 import colorama
 from colorama import Fore
+from classes.conexao import Conexao
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
@@ -40,23 +41,26 @@ def login():
     if tipo == 0: return 'sair'
 
     if tipo == 1:
-        limpar()
-        user = input('Informe o seu CPF: ')
-        valido = Usuario.search(user)
-        
-        if valido: return 'comum'
-        else: 
-            print(Fore.RED + 'Usuário não encontrado na base de dados')
-            input()
+        while True:
+            limpar()
+            user = input('Informe o seu CPF: ')
+            valido = Usuario.search(user)            
+            if valido: 
+                return 'comum'
+            else: 
+                print(Fore.RED + 'Usuário não encontrado na base de dados')
+                input()
+                
     elif tipo == 2:
-        limpar()
-        user = input('Informe o CNPJ da ONG: ')
-        valido = Ong.search(user)
-        
-        if valido: return 'ong'
-        else: 
-            print(Fore.RED + 'Ong não encontrada na base de dados')
-            input()
+        while True:
+            limpar()
+            user = input('Informe o CNPJ da ONG: ')
+            valido = Ong.search(user)
+            
+            if valido: return 'ong'
+            else: 
+                print(Fore.RED + 'Ong não encontrada na base de dados')
+                input()
 
 def menuUser():
     limpar()
