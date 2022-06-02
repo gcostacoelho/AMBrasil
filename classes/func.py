@@ -7,6 +7,8 @@ conecta.connect()
 
 class Denuncia:
     def view():
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM denuncia;")
             
@@ -22,6 +24,8 @@ class Denuncia:
         finally: conecta.disconnect()
 
     def insert(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("INSERT INTO denuncia (nomeDenuncia, telContato, tipoDesastre, classificacao, situacao) VALUES (?,?,?,?,?)", (nomeDenuncia, telContato, tipoDesastre, classificacao, situacao,))
             conecta.persist()
@@ -32,6 +36,8 @@ class Denuncia:
         finally: conecta.disconnect()
 
     def update(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao, id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("UPDATE denuncia SET nomeDenuncia=?, telContato=?, tipoDesastre=?, classificacao=?, situacao=?: WHERE id = ?;",(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao, id))
             conecta.persist()
@@ -42,6 +48,8 @@ class Denuncia:
         finally: conecta.disconnect()   
 
     def delete(id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("DELETE FROM denuncia WHERE id=?;", (id,))
             conecta.persist()
@@ -54,7 +62,10 @@ class Denuncia:
 
 
 class Campanha_Doacao:
+    
     def view():
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM campanha_doacao;")
             
@@ -70,6 +81,8 @@ class Campanha_Doacao:
         finally: conecta.disconnect()
 
     def insert(ong, titulo, descricao, denuncia, meta):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("INSERT INTO campanha_doacao (ong, titulo, descricao, denuncia, meta) VALUES (?,?,?,?,?)", (ong, titulo, descricao, denuncia, meta,))
             conecta.persist()
@@ -80,6 +93,8 @@ class Campanha_Doacao:
         finally: conecta.disconnect()
 
     def update(ong, titulo, descricao, denuncia, meta, id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("UPDATE campanha_doacao SET ong=?, titulo=?, descricao=?, denuncia=?, meta=? WHERE id = ?;",(ong, titulo, descricao, denuncia, meta, id))
             conecta.persist()
@@ -90,6 +105,8 @@ class Campanha_Doacao:
         finally: conecta.disconnect()       
 
     def delete(id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("DELETE FROM campanha_doacao WHERE id=?;", (id,))
             conecta.persist()

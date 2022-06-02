@@ -7,6 +7,8 @@ conecta.connect()
 
 class Usuario:
     def view():
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM usuario;")
             
@@ -23,6 +25,8 @@ class Usuario:
         finally: conecta.disconnect()
 
     def insert(nome, email, cpf):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("INSERT INTO usuario (nome, email, cpf) VALUES (?,?,?)", (nome, email, cpf))
             conecta.persist()
@@ -33,6 +37,8 @@ class Usuario:
         finally: conecta.disconnect()
 
     def update(id, nome, email, cpf):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("UPDATE usuario SET nome =?, email=?, cpf=? WHERE id = ?;",(nome, email, cpf, id))
             conecta.persist()
@@ -43,6 +49,8 @@ class Usuario:
         finally: conecta.disconnect()
 
     def search(cpf=""):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM usuario WHERE cpf=?;", (cpf,))
             rows = conecta.fetchall()
@@ -52,9 +60,13 @@ class Usuario:
                     conecta.disconnect()
                     return True
         except Error as e: print(e)
-        finally: conecta.disconnect()
+        finally: 
+            print('finally')
+            conecta.disconnect()
 
     def delete(id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("DELETE FROM usuario WHERE id=?;", (id,))
             conecta.persist()
@@ -66,6 +78,8 @@ class Usuario:
 
 class Ong:
     def view():
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM ong;")
             
@@ -81,6 +95,8 @@ class Ong:
         finally: conecta.disconnect()
 
     def insert(nome, cnpj, endereco, email, tel, bio):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("INSERT INTO ong (nome, email, cnpj, endereco, tel, bio) VALUES (?,?,?,?,?,?)", (nome, cnpj, endereco, email, tel, bio,))
             conecta.persist()
@@ -91,6 +107,8 @@ class Ong:
         finally: conecta.disconnect()
 
     def update(nome, cnpj, endereco, email, tel, bio, id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("UPDATE ong SET nome =?, cnpj=?, endereco=? , email=?, tel=?, bio=? WHERE id = ?;",(nome, cnpj, endereco, email, tel, bio, id))
             conecta.persist()
@@ -101,6 +119,8 @@ class Ong:
         finally: conecta.disconnect()
 
     def search(cnpj=""):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("SELECT * FROM ong WHERE cnpj=?;", (cnpj,))
             rows = conecta.fetchall()
@@ -113,6 +133,8 @@ class Ong:
         finally: conecta.disconnect()
         
     def delete(id):
+        conecta = Conexao()
+        conecta.connect()
         try:
             conecta.execute("DELETE FROM ong WHERE id=?;", (id,))
             conecta.persist()
