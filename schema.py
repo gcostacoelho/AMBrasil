@@ -22,10 +22,10 @@ def initDB():
     )
     #-----------Denúnica e Campanhas (Funcionalidades)-----------#
     conecta.execute( 
-        "CREATE TABLE IF NOT EXISTS denuncia (id integer primary key AUTOINCREMENT, nomeDenunica TEXT NOT NULL, telContato TEXT NOT NULL, tipoDesastre TEXT NOT NULL, classificacao TEXT NOT NULL, situacao TEXT NOT NULL, foreign key(tipoDesastre) references tipoDesastre(id), foreign key(classificacao) references classificacao(id));"
+        "CREATE TABLE IF NOT EXISTS denuncia (id integer primary key AUTOINCREMENT, nomeDenuncia TEXT NOT NULL, telContato TEXT NOT NULL, tipoDesastre TEXT NOT NULL, classificacao TEXT NOT NULL, situacao TEXT NOT NULL, foreign key(tipoDesastre) references tipoDesastre(id), foreign key(classificacao) references classificacao(id));"
     )
     conecta.execute( 
-        "CREATE TABLE IF NOT EXISTS denuncia (id integer primary key AUTOINCREMENT, ong TEXT NOT NULL, titulo TEXT NOT NULL, descricao TEXT NOT NULL, denuncia TEXT NOT NULL, meta TEXT NOT NULL, foreign key(ong) references ong(id), foreign key(denuncia) references denuncia(id));"
+        "CREATE TABLE IF NOT EXISTS campanha (id integer primary key AUTOINCREMENT, ong TEXT NOT NULL, titulo TEXT NOT NULL, descricao TEXT NOT NULL, denuncia TEXT NOT NULL, meta TEXT NOT NULL, foreign key(ong) references ong(id), foreign key(denuncia) references denuncia(id));"
     )
     conecta.persist()
     conecta.disconnect()

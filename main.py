@@ -4,12 +4,15 @@ from os import system
 from time import sleep
 import colorama
 from colorama import Fore
-from classes.conexao import Conexao
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.users import Usuario, Ong
+from classes.conexao import Conexao
 import schema
+
+#Import functions
+from functions import funcUsers
 
 
 colorama.init(autoreset='true')
@@ -32,7 +35,6 @@ def limpar():
     limpar()
 
 #Funções do programa
-
 def login():
     limpar()
     print(Fore.CYAN + BOLD + '-----------Login------------')
@@ -106,8 +108,8 @@ if __name__ == '__main__':
             while True:
                 opcao = menuUser()
                 if opcao == 0: break
-                elif opcao == 1: 
-                    print('Chama inserir denúncia')
+                elif opcao == 1:
+                    funcUsers.inserir()
                     input()
                 elif opcao == 2: 
                     print('Chama view de campanhas')
