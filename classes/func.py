@@ -23,7 +23,7 @@ class Denuncia:
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-    def insert(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao):
+    def insert(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao=False):
         conecta = Conexao()
         conecta.connect()
         try:
@@ -47,6 +47,20 @@ class Denuncia:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()   
 
+    def search(id=""):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("SELECT * FROM denuncia WHERE id=?;", (id,))
+            rows = conecta.fetchall()
+
+            for item in rows: 
+                if item != '': 
+                    conecta.disconnect()
+                    return True
+        except Error as e: print(e)
+        finally: conecta.disconnect()
+
     def delete(id):
         conecta = Conexao()
         conecta.connect()
@@ -58,8 +72,6 @@ class Denuncia:
             print(Fore.GREEN + "Rescadastro de Denuncia realizado com sucesso")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
-
-
 
 class Campanha_Doacao:
     

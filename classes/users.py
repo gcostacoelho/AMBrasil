@@ -20,7 +20,7 @@ class Usuario:
         
         except Error as e: print(e)
         else: 
-            print(Fore.GREEN + "Pesquisa realizada com sucesso em Clientes.")
+            print(Fore.GREEN + "Pesquisa realizada com sucesso em Usuário.")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
@@ -60,9 +60,7 @@ class Usuario:
                     conecta.disconnect()
                     return True
         except Error as e: print(e)
-        finally: 
-            print('finally')
-            conecta.disconnect()
+        finally: conecta.disconnect()
 
     def delete(id):
         conecta = Conexao()
@@ -90,7 +88,7 @@ class Ong:
                 print("{:<5} {:<20} {:<50} {:<11} {:<40} {:<30} {:22}".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5], rows[item][6]))
         except Error as e: print(e)
         else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Clientes.")
+                print(Fore.GREEN + "Pesquisa realizada com sucesso em Ong.")
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
