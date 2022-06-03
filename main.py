@@ -109,8 +109,7 @@ if __name__ == '__main__':
                 opcao = menuUser()
                 if opcao == 0: break
                 elif opcao == 1:
-                    funcUsers.inserir()
-                    input()
+                    funcUsers.inserir_denuncia()
                 elif opcao == 2: 
                     print('Chama view de campanhas')
                     input()

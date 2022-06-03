@@ -1,25 +1,24 @@
 #Import resources
-from sqlite3 import Error
-from os import system
 from time import sleep
 import colorama
 from colorama import Fore
-
+#Import local files
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.func import Denuncia
-from classes.users import Usuario, Ong
-from classes.conexao import Conexao
-
 from main import limpar
+from Api.request import buscaCEP
 
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
 
-def inserir():
+
+
+def inserir_denuncia():
     limpar()
+    """Inserir denúncia"""
     print(f'Você está inserindo uma ' + Fore.RED + BOLD + 'denúncia' + Fore.RESET)
     print(25 * '-')
-    denuncia = input('Nome da denúncia' + Fore.RED + '(Ex: Enchente no centro da cidade)' + Fore.RESET + ': ')
+    denuncia = input('Nome da denúncia ' + Fore.RED + '(Ex: Enchente no centro da cidade)' + Fore.RESET + ': ')
     
     contato = input('Insira um telefone para um possível contato: ')
     
@@ -38,3 +37,11 @@ def inserir():
         else:  print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
 
     Denuncia.insert(denuncia, contato, tipoDesastre, classificacao)
+
+    limpar()
+
+    """Inserir local"""
+    print(buscaCEP('07747270'))
+
+    
+
