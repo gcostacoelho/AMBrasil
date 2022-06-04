@@ -123,10 +123,10 @@ class Ong:
             conecta.execute("SELECT * FROM ong WHERE cnpj=?;", (cnpj,))
             rows = conecta.fetchall()
 
-            for item in rows: 
+            for item in range(len(rows)): 
                 if item != '': 
                     conecta.disconnect()
-                    return True
+                    return rows[item][0]
         except Error as e: print(e)
         finally: conecta.disconnect()
         

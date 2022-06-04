@@ -74,12 +74,11 @@ class Denuncia:
         finally: conecta.disconnect()
 
 class Campanha_Doacao:
-    
     def view():
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM campanha_doacao;")
+            conecta.execute("SELECT * FROM campanha;")
             
             rows = conecta.fetchall()
             print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
@@ -96,7 +95,7 @@ class Campanha_Doacao:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("INSERT INTO campanha_doacao (ong, titulo, descricao, denuncia, meta) VALUES (?,?,?,?,?)", (ong, titulo, descricao, denuncia, meta,))
+            conecta.execute("INSERT INTO campanha (ong, titulo, descricao, denuncia, meta) VALUES (?,?,?,?,?)", (ong, titulo, descricao, denuncia, meta,))
             conecta.persist()
         except Error as e: print(e)
         else:             
@@ -108,7 +107,7 @@ class Campanha_Doacao:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("UPDATE campanha_doacao SET ong=?, titulo=?, descricao=?, denuncia=?, meta=? WHERE id = ?;",(ong, titulo, descricao, denuncia, meta, id))
+            conecta.execute("UPDATE campanha SET ong=?, titulo=?, descricao=?, denuncia=?, meta=? WHERE id = ?;",(ong, titulo, descricao, denuncia, meta, id))
             conecta.persist()
         except Error as e: print(e)
         else:
@@ -120,7 +119,7 @@ class Campanha_Doacao:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("DELETE FROM campanha_doacao WHERE id=?;", (id,))
+            conecta.execute("DELETE FROM campanha WHERE id=?;", (id,))
             conecta.persist()
         except Error as e: print(e)
         else:
