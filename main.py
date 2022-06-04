@@ -12,7 +12,7 @@ from classes.conexao import Conexao
 import schema
 
 #Import functions
-from functions import funcUsers
+from functions import funcUsers, funcOngs
 
 
 colorama.init(autoreset='true')
@@ -58,8 +58,7 @@ def login():
             limpar()
             user = input('Informe o CNPJ da ONG: ')
             valido = Ong.search(user)
-            
-            if valido: return 'ong'
+            if valido: return 'ong', valido
             else: 
                 print(Fore.RED + 'Ong não encontrada na base de dados')
                 input()
@@ -82,10 +81,12 @@ def menuOng():
     limpar()
     print('Bem vindo ONG')
     while True:
-        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n"))
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n\t3-Atualizar uma campanha\n\t4-Excluir uma campanha\n"))
         if op == 0: return op
         elif op == 1: return op
         elif op == 2: return op
+        elif op == 3: return op
+        elif op == 4: return op
         else:
             print(Fore.RED + 'Não tenho essa opção disponível')
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
@@ -110,20 +111,27 @@ if __name__ == '__main__':
                 if opcao == 0: break
                 elif opcao == 1:
                     funcUsers.inserir_denuncia()
+                    input("Pressione <ENTER> para continuar...")
                 elif opcao == 2: 
                     print('Chama view de campanhas')
-                    input()
+                    input("Pressione <ENTER> para continuar...")
 
-        elif login == 'ong':
+        elif login[0] == 'ong':
             while True:
                 opcao = menuOng()
                 if opcao == 0: break
                 elif opcao == 1: 
-                    print('Chama inserir campanha')
-                    input()
+                    funcOngs.inserirCampanha(login[1])
+                    input("Pressione <ENTER> para continuar...")
                 elif opcao == 2: 
                     print('Chama view de campanhas')
-                    input()
+                    input("Pressione <ENTER> para continuar...")
+                elif opcao == 3:
+                    print('Chama atualizar campanhas')
+                    input("Pressione <ENTER> para continuar...")
+                elif opcao == 4:
+                    print('Chama view de campanhas')
+                    input("Pressione <ENTER> para continuar...")
         break
     
     print('Obrigado por usar o '+ Fore.GREEN + 'AMBrasil')
