@@ -11,10 +11,9 @@ from Api.request import buscaCEP
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
 
-
-
 def inserir_denuncia():
     limpar()
+
     """Inserir denúncia"""
     print(f'Você está inserindo uma ' + Fore.RED + BOLD + 'denúncia' + Fore.RESET)
     print(25 * '-')
@@ -39,9 +38,9 @@ def inserir_denuncia():
     Denuncia.insert(denuncia, contato, tipoDesastre, classificacao)
 
     limpar()
-
     """Inserir local"""
-    print(buscaCEP('07747270'))
-
+    cep = input("Insira o CEP onde está acontecendo a denúncia: ")
+    dados = buscaCEP(cep)
     
-
+    idDenuncia=Denuncia.search("", denuncia)
+    Tipo_Local.insert(dados[0], dados[1], dados[2], cep, idDenuncia)

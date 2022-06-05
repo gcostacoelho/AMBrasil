@@ -47,17 +47,17 @@ class Denuncia:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()   
 
-    def search(id=""):
+    def search(id="", nomeDenuncia=""):
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM denuncia WHERE id=?;", (id,))
+            conecta.execute("SELECT * FROM denuncia WHERE id=? or nomeDenuncia=?;", (id, nomeDenuncia,))
             rows = conecta.fetchall()
 
-            for item in rows: 
+            for item in range(len(rows)): 
                 if item != '': 
                     conecta.disconnect()
-                    return True
+                    return rows[item][0]
         except Error as e: print(e)
         finally: conecta.disconnect()
 

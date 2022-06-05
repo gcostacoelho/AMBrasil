@@ -93,11 +93,11 @@ class Tipo_Local:
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-    def insert(siglaEstado, cidade, logradouro, cep):
+    def insert(siglaEstado, cidade, logradouro, cep, denuncia):
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("INSERT INTO tipoLocal (siglaEstado, cidade, logradouro, cep) VALUES (?,?,?,?)", (siglaEstado, cidade, logradouro, cep,))
+            conecta.execute("INSERT INTO tipoLocal (siglaEstado, cidade, logradouro, cep, denuncia) VALUES (?,?,?,?,?)", (siglaEstado, cidade, logradouro, cep, denuncia,))
             conecta.persist()
         except Error as e: print(e)
         else:             
