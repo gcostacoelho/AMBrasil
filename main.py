@@ -7,6 +7,7 @@ from colorama import Fore
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
+from classes.func import Campanha_Doacao
 from classes.users import Usuario, Ong
 from classes.conexao import Conexao
 import schema
@@ -113,9 +114,7 @@ if __name__ == '__main__':
                     funcUsers.inserir_denuncia()
                     input("Pressione <ENTER> para continuar...")
                 elif opcao == 2: 
-                    print('Chama view de campanhas')
-                    input("Pressione <ENTER> para continuar...")
-
+                    Campanha_Doacao.view()
         elif login[0] == 'ong':
             while True:
                 opcao = menuOng()
