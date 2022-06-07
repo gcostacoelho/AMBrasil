@@ -28,5 +28,8 @@ def initDB():
     conecta.execute( 
         "CREATE TABLE IF NOT EXISTS campanha (id integer primary key AUTOINCREMENT, ong TEXT NOT NULL, titulo TEXT NOT NULL, descricao TEXT NOT NULL, denuncia TEXT NOT NULL, meta TEXT NOT NULL, foreign key(ong) references ong(id), foreign key(denuncia) references denuncia(id));"
     )
+    conecta.execute(
+        "CREATE TABLE IF NOT EXISTS contatosEmerg (id integer primary key AUTOINCREMENT, autoridade TEXT NOT NULL, numTel TEXT NOT NULL);"
+    )
     conecta.persist()
     conecta.disconnect()
