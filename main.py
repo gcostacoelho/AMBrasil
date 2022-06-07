@@ -13,8 +13,7 @@ from classes.conexao import Conexao
 import schema
 
 #Import functions
-from functions import funcUsers, funcOngs
-
+from functions import funcUsers, funcOngs, funcADM
 
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
@@ -44,31 +43,46 @@ def login():
     print(Fore.GREEN + 25 * '-')
     print('\n')
 
-    print(Fore.CYAN + BOLD + '-----------Login------------')
-    tipo = int(input('Informe o seu tipo de usuário\n\n\t0-Fechar aplicativo\n\t1-Usuário comum\n\t2-ONG\n'))
-    
-    if tipo == 0: return 'sair'
+    while True:
+        acao = int(input(Fore.RESET + '\t0-Fechar aplicativo\n\t1-Login usuário\n\t2-Login ONG\n\t3-Registrar\n'))
+        
+        if acao == 0: return 'sair'
 
-    if tipo == 1:
-        while True:
-            limpar()
-            user = input('Informe o seu CPF: ')
-            valido = Usuario.search(user)            
-            if valido: 
-                return 'comum'
-            else: 
-                print(Fore.RED + 'Usuário não encontrado na base de dados')
-                input()
+        if acao == 1:
+            while True:
+                limpar()
+                user = input('Informe o seu CPF: ')
+                valido = Usuario.search(user)            
+                if valido: 
+                    return 'comum'
+                else: 
+                    print(Fore.RED + 'Usuário não encontrado na base de dados')
+                    sleep(3)
+                    
+        elif acao == 2:
+            while True:
+                limpar()
+                user = input('Informe o CNPJ da ONG: ')
+                valido = Ong.search(user)
+                if valido: return 'ong', valido
+                else: 
+                    print(Fore.RED + 'Ong não encontrada na base de dados')
+                    sleep(3)
+        
+        elif acao == 3:
+            while True:
+                limpar()
+                print('Registro de novo usuário')
+                print(Fore.RED + 'AVISO: ' + Fore.RESET + "Para cadastros de ONG é necessário entrar em contato com nosso suporte")
                 
-    elif tipo == 2:
-        while True:
-            limpar()
-            user = input('Informe o CNPJ da ONG: ')
-            valido = Ong.search(user)
-            if valido: return 'ong', valido
-            else: 
-                print(Fore.RED + 'Ong não encontrada na base de dados')
-                input()
+                nome = input('Insira seu nome: ')
+                email = input('Insira um email válido: ')
+                cpf = input('Insira o seu CPF: ')
+                sucesso = Usuario.insert(nome, email, cpf)
+                if sucesso: break
+                else: 
+                    print('Algo deu errado, tente novamente')
+                    sleep(3)
 
 def menuUser():
     limpar()
@@ -116,40 +130,41 @@ if __name__ == '__main__':
     sleep(3)
 
     while True:
-        login = login()
-        if login == 'sair': break
-        
-        elif login == 'comum':
-            while True:
-                opcao = menuUser()
-                if opcao == 0: break
-                elif opcao == 1:
-                    funcUsers.inserir_denuncia()
-                    input("Pressione <ENTER> para continuar...")
-                elif opcao == 2: Campanha_Doacao.view()
-                elif opcao == 3: Contato_Emerg.view()
+        try:
+            login = login()
+            if login == 'sair': break
+            
+            elif login == 'comum':
+                while True:
+                    opcao = menuUser()
+                    if opcao == 0: break
+                    elif opcao == 1:
+                        funcUsers.inserir_denuncia()
+                        input("Pressione <ENTER> para continuar...")
+                    elif opcao == 2: Campanha_Doacao.view()
+                    elif opcao == 3: Contato_Emerg.view()
 
-        elif login[0] == 'ong':
-            while True:
-                opcao = menuOng()
-                if opcao == 0: break
-                elif opcao == 1: 
-                    funcOngs.inserirCampanha(login[1])
-                    input("Pressione <ENTER> para continuar...")
-                elif opcao == 2: 
-                    print('Chama view de campanhas')
-                    input("Pressione <ENTER> para continuar...")
-                elif opcao == 3:
-                    print('Chama atualizar campanhas')
-                    input("Pressione <ENTER> para continuar...")
-                elif opcao == 4:
-                    print('Chama view de campanhas')
-                    input("Pressione <ENTER> para continuar...")
+            elif login[0] == 'ong':
+                while True:
+                    opcao = menuOng()
+                    if opcao == 0: break
+                    elif opcao == 1: 
+                        funcOngs.inserirCampanha(login[1])
+                        input("Pressione <ENTER> para continuar...")
+                    elif opcao == 2: 
+                        print('Chama view de campanhas')
+                        input("Pressione <ENTER> para continuar...")
+                    elif opcao == 3:
+                        print('Chama atualizar campanhas')
+                        input("Pressione <ENTER> para continuar...")
+                    elif opcao == 4:
+                        print('Chama view de campanhas')
+                        input("Pressione <ENTER> para continuar...")
+            else: break
+        except: 
+            print('Hmm, algo deu errado... Tente novamente mais tarde :(')
+            input()
+            break
         break
     
     print('Obrigado por usar o '+ Fore.GREEN + 'AMBrasil')
-
-
-
-
-    
