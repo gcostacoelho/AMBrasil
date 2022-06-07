@@ -2,8 +2,6 @@ from colorama import Fore
 from .conexao import Conexao
 from sqlite3 import Error
 
-
-
 class Tipo_Desastre:
     def view():
         conecta = Conexao()

@@ -18,8 +18,7 @@ class Denuncia:
             for item in range(len(rows)):
                 print("{:<5} {:<40} {:<20} {:<15} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
         except Error as e: print(e)
-        else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Denuncias.")
+        else:
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
@@ -124,5 +123,58 @@ class Campanha_Doacao:
         except Error as e: print(e)
         else:
             print(Fore.GREEN + "Descadastro de Campanhas realizado com sucesso")
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
+
+class Contato_Emerg:
+    def view():
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("SELECT * FROM contatosEmerg;")
+            
+            rows = conecta.fetchall()
+            print("{:<5} {:<20} {:<20}".format("ID", "autoridade", "Telefone"))
+            
+            for item in range(len(rows)):
+                print("{:<5} {:<20} {:<20}".format(rows[item][0], rows[item][1], rows[item][2]))
+        except Error as e: print(e)
+        else: 
+                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
+
+    def insert(autoridade, num):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("INSERT INTO contatosEmerg (autoridade, numTel) VALUES (?,?)", (autoridade, num,))
+            conecta.persist()
+        except Error as e: print(e)
+        else:             
+            print(Fore.GREEN + "Registro feito com sucesso.")
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
+
+    def update(autoridade, num, id):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("UPDATE contatosEmerg SET autoridade=?, numTel=? WHERE id = ?;",(autoridade, num, id))
+            conecta.persist()
+        except Error as e: print(e)
+        else:
+            print(Fore.GREEN + 'Atualização feita com sucesso.')
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
+
+    def delete(id):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("DELETE FROM contatosEmerg WHERE id=?;", (id,))
+            conecta.persist()
+        except Error as e: print(e)
+        else:
+            print(Fore.GREEN + "Número de emergência removido com sucesso")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
