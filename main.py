@@ -7,7 +7,7 @@ from colorama import Fore
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
-from classes.func import Campanha_Doacao
+from classes.func import Campanha_Doacao,Contato_Emerg
 from classes.users import Usuario, Ong
 from classes.conexao import Conexao
 import schema
@@ -38,6 +38,12 @@ def limpar():
 #Funções do programa
 def login():
     limpar()
+
+    print(Fore.GREEN + 25 * '-')
+    print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
+    print(Fore.GREEN + 25 * '-')
+    print('\n')
+
     print(Fore.CYAN + BOLD + '-----------Login------------')
     tipo = int(input('Informe o seu tipo de usuário\n\n\t0-Fechar aplicativo\n\t1-Usuário comum\n\t2-ONG\n'))
     
@@ -66,12 +72,16 @@ def login():
 
 def menuUser():
     limpar()
-    print('Bem vindo usuário')
+    print(Fore.GREEN + 25 * '-')
+    print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
+    print(Fore.GREEN + 25 * '-')
+    
     while True:
-        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar denúncia\n\t2-Ver campanhas de doação\n"))
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar denúncia\n\t2-Ver campanhas de doação\n\t3-Ver contatos de emergência\n"))
         if op == 0: return op
         elif op == 1: return op
         elif op == 2: return op
+        elif op == 3: return op
         else:
             print(Fore.RED + 'Não tenho essa opção disponível')
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
@@ -80,7 +90,10 @@ def menuUser():
 
 def menuOng():
     limpar()
-    print('Bem vindo ONG')
+    print(Fore.GREEN + 25 * '-')
+    print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
+    print(Fore.GREEN + 25 * '-')
+    
     while True:
         op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n\t3-Atualizar uma campanha\n\t4-Excluir uma campanha\n"))
         if op == 0: return op
@@ -113,8 +126,9 @@ if __name__ == '__main__':
                 elif opcao == 1:
                     funcUsers.inserir_denuncia()
                     input("Pressione <ENTER> para continuar...")
-                elif opcao == 2: 
-                    Campanha_Doacao.view()
+                elif opcao == 2: Campanha_Doacao.view()
+                elif opcao == 3: Contato_Emerg.view()
+
         elif login[0] == 'ong':
             while True:
                 opcao = menuOng()
