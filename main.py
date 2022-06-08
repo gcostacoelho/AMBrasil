@@ -44,7 +44,7 @@ def login():
     print('\n')
 
     while True:
-        acao = int(input(Fore.RESET + '\t0-Fechar aplicativo\n\t1-Login usuário\n\t2-Login ONG\n\t3-Registrar\n'))
+        acao = int(input(Fore.RESET + '\t0-Fechar aplicativo\n\t1-Login usuário\n\t2-Login ONG\n\t3-Registrar\n\t4-Login ADM\n\n: '))
         
         if acao == 0: return 'sair'
 
@@ -85,6 +85,17 @@ def login():
                 else: 
                     print('Algo deu errado, tente novamente')
                     sleep(3)
+                    
+        elif acao == 4:          
+                    
+                limpar()
+                print(Fore.RED + 'PERFIL ADMINISTRADOR ')
+                
+
+                if sucesso: break
+                else: 
+                    print('Algo deu errado, tente novamente')
+                    sleep(3)             
         else: 
             print("Não tenho essa opção por aqui... Por favor escolha apenas as que aparecem no menu")
             sleep(3)
