@@ -156,13 +156,13 @@ if __name__ == '__main__':
                         funcOngs.inserirCampanha(login[1])
                         input("Pressione <ENTER> para continuar...")
                     elif opcao == 2: 
-                        print('Chama view de campanhas')
+                        funcOngs.visualizarCampanhas(login[1])
                         input("Pressione <ENTER> para continuar...")
                     elif opcao == 3:
-                        print('Chama atualizar campanhas')
+                        funcOngs.atualizarCampanha(login[1])
                         input("Pressione <ENTER> para continuar...")
                     elif opcao == 4:
-                        print('Chama view de campanhas')
+                        funcOngs.deletarCampanha(login[1])
                         input("Pressione <ENTER> para continuar...")
             else: break
         except: 
