@@ -5,6 +5,7 @@ from time import sleep
 import colorama
 from colorama import Fore
 
+
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.func import Campanha_Doacao,Contato_Emerg
@@ -14,7 +15,7 @@ import schema
 
 #Import functions
 from functions import funcUsers, funcOngs, funcADM
-
+ 
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
 
@@ -44,7 +45,7 @@ def login():
     print('\n')
 
     while True:
-        acao = int(input(Fore.RESET + '\t0-Fechar aplicativo\n\t1-Login usuário\n\t2-Login ONG\n\t3-Registrar\n\t4-Login ADM\n\n: '))
+        acao = int(input(Fore.RESET + '\t0-Fechar aplicativo\n\t1-Login usuário\n\t2-Login ONG\n\t3-Registrar\n\t4-Login ADM\n: '))
         
         if acao == 0: return 'sair'
 
@@ -86,20 +87,23 @@ def login():
                     print('Algo deu errado, tente novamente')
                     sleep(3)
                     
-        elif acao == 4:          
-                    
-                limpar()
-                print(Fore.RED + 'PERFIL ADMINISTRADOR ')
-                
+        elif acao == 4: 
 
-                if sucesso: break
-                else: 
-                    print('Algo deu errado, tente novamente')
-                    sleep(3)             
-        else: 
-            print("Não tenho essa opção por aqui... Por favor escolha apenas as que aparecem no menu")
-            sleep(3)
-            limpar()
+            admin = 'adm'
+            
+            while True:
+                limpar()
+                print(Fore.CYAN + '-------LOGIN-------' + Fore.RESET)
+                logar = input('Login: ')
+                if admin == logar:
+                    return 'adm'
+                    
+                else:  
+                    print(Fore.RED + 'Incorreto')
+                    sleep(2)   
+
+
+
 
 def menuUser():
     limpar()
@@ -118,6 +122,23 @@ def menuUser():
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
             sleep(2)
             limpar()
+
+def menuAdm():
+    limpar()
+    print(Fore.GREEN + 25 * '-')
+    print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
+    print(Fore.GREEN + 25 * '-')
+    while True:
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t2-Ver campanhas de doação\n\t3-Ver contatos de emergência\n"))
+        if op == 0: return op
+        #elif op == 1: return op
+        elif op == 2: return op
+        elif op == 3: return op
+        else:
+            print(Fore.RED + 'Não tenho essa opção disponível')
+            print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
+            sleep(2)
+            limpar()  
 
 def menuOng():
     limpar()
@@ -158,6 +179,14 @@ if __name__ == '__main__':
                     elif opcao == 1: funcUsers.inserir_denuncia()
                     elif opcao == 2: Campanha_Doacao.view()
                     elif opcao == 3: Contato_Emerg.view()
+
+            elif login == 'adm':
+                while True:
+                    opcao = menuAdm()
+                    if opcao == 0: break
+                    #elif opcao == 1: funcUsers.inserir_denuncia()
+                    elif opcao == 2: Campanha_Doacao.view()
+                    elif opcao == 3: Contato_Emerg.view()           
 
             elif login[0] == 'ong':
                 while True:
