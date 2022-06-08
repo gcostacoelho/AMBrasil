@@ -28,11 +28,8 @@ def inserirCampanha(ong):
 
     Campanha_Doacao.insert(ong, Titulo, Descricao, denuncia, Meta)
 
-
-
 def visualizarCampanhas():
     print('visualizarCampanhas')
-
 
 def atualizarCampanha():
     print('atualizar')

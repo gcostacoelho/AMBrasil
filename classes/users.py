@@ -34,6 +34,7 @@ class Usuario:
         else:             
             print(Fore.GREEN + "Registro feito com sucesso.")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+            return True
         finally: conecta.disconnect()
 
     def update(id, nome, email, cpf):

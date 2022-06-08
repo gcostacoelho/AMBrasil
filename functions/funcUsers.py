@@ -36,11 +36,27 @@ def inserir_denuncia():
         else:  print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
 
     Denuncia.insert(denuncia, contato, tipoDesastre, classificacao)
-
+    
     limpar()
     """Inserir local"""
     cep = input("Insira o CEP onde está acontecendo a denúncia: ")
     dados = buscaCEP(cep)
-    
-    idDenuncia=Denuncia.search("", denuncia)
-    Tipo_Local.insert(dados[0], dados[1], dados[2], cep, idDenuncia)
+
+    print(f'Cidade: {dados[1]}')
+    print(f'Estado: {dados[0]}')
+    print(f'Logradouro: {dados[2]}')
+    while True:
+        correto = input('Os dados estão corretos (s/n): ').lower()
+        if correto == 's': 
+            idDenuncia=Denuncia.search("", denuncia)
+            Tipo_Local.insert(dados[0], dados[1], dados[2], cep, idDenuncia)                   
+        if correto == 'n':
+            cep = input(Fore.RESET + 'Insira o CEP do local: ')
+            cidade = input('Insira o nome da cidade: ')
+            sigla = input('Insira a sigla do estado: ')
+            logradouro = input('Insira o logradouro: ')
+            break
+        else: print('Por favor, digite apenas s - para "sim" ou n - para "não"')
+        
+        idDenuncia=Denuncia.search("", denuncia)
+        Tipo_Local.insert(sigla, cidade, logradouro, cep, idDenuncia)

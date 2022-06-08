@@ -51,6 +51,7 @@ def login():
         if acao == 1:
             while True:
                 limpar()
+                print(Fore.CYAN + '-------LOGIN-------' + Fore.RESET)
                 user = input('Informe o seu CPF: ')
                 valido = Usuario.search(user)            
                 if valido: 
@@ -62,6 +63,7 @@ def login():
         elif acao == 2:
             while True:
                 limpar()
+                print(Fore.CYAN + '-------LOGIN-------' + Fore.RESET)
                 user = input('Informe o CNPJ da ONG: ')
                 valido = Ong.search(user)
                 if valido: return 'ong', valido
@@ -83,6 +85,10 @@ def login():
                 else: 
                     print('Algo deu errado, tente novamente')
                     sleep(3)
+        else: 
+            print("Não tenho essa opção por aqui... Por favor escolha apenas as que aparecem no menu")
+            sleep(3)
+            limpar()
 
 def menuUser():
     limpar()
@@ -138,9 +144,7 @@ if __name__ == '__main__':
                 while True:
                     opcao = menuUser()
                     if opcao == 0: break
-                    elif opcao == 1:
-                        funcUsers.inserir_denuncia()
-                        input("Pressione <ENTER> para continuar...")
+                    elif opcao == 1: funcUsers.inserir_denuncia()
                     elif opcao == 2: Campanha_Doacao.view()
                     elif opcao == 3: Contato_Emerg.view()
 
