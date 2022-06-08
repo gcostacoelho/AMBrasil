@@ -142,3 +142,22 @@ class Ong:
             print(Fore.GREEN + "Descadastro de usuário realizado com sucesso")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
+
+
+class Admin:
+    def view_users():
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("SELECT * FROM usuario;")
+            
+            rows = conecta.fetchall()
+            print("{:<5} {:<20} {:<50} {:<12} ".format("ID", "nome", "email", "cpf"))
+            
+            for item in range(len(rows)):
+                print("{:<5} {:<20} {:<50} {:<12} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3]))
+        except Error as e: print(e)
+        else: 
+                print(Fore.GREEN + "Pesquisa realizada com sucesso em Usuarios.")
+                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
