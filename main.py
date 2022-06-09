@@ -124,11 +124,19 @@ def menuAdm():
     print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
     print(Fore.GREEN + 25 * '-')
     while True:
-        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Ver uma lista com todos os Usuarios cadastrados"))
+        print('O que você deseja fazer\n\n\t'+Fore.GREEN+'------------Usuario-----------'+Fore.RESET +'\n\t0-Sair\n\t1-Ver uma lista com todos os Usuarios cadastrados\n\t2-Deletar um usuario do Banco')
+        print("\n\t"+Fore.GREEN+"------------Ong-----------"+Fore.RESET+"\n\t3-Cadastrar Ong no Sistema\n\t4-Ver uma lista com todos as Ongs cadastradas no Sistema\n\t5-Deletar uma Ong cadastrada no Sistema")
+        print("\n\t"+Fore.GREEN+"------------Campanha-----------"+Fore.RESET+"\n\t6-Visualizar Campanhas no Sistema\n\t7-Visualizar Campanhas de uma determinada Ong no Sistema\n\t8-Deletar uma Campanha cadastrada no Sistema")
+        op = int(input("\t: "))
         if op == 0: return op
         elif op == 1: return op
-        #elif op == 2: return op
-        #elif op == 3: return op
+        elif op == 2: return op
+        elif op == 3: return op
+        elif op == 4: return op
+        elif op == 5: return op
+        elif op == 6: return op
+        elif op == 7: return op
+        elif op == 8: return op
         else:
             print(Fore.RED + 'Não tenho essa opção disponível')
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
@@ -179,8 +187,13 @@ if __name__ == '__main__':
                 opcao = menuAdm()
                 if opcao == 0: break
                 elif opcao == 1: funcADM.verUsuarios()
-                #elif opcao == 2: Campanha_Doacao.view()
-                #elif opcao == 3: Contato_Emerg.view()           
+                elif opcao == 2: funcADM.delUsuario()
+                elif opcao == 3: funcADM.addOngs()
+                elif opcao == 4: funcADM.verOngs()
+                elif opcao == 5: funcADM.delOng()
+                elif opcao == 6: funcADM.verCampanhas()
+                elif opcao == 7: funcADM.verCampanha()
+                elif opcao == 8: funcADM.delCampanha()        
 
         elif login[0] == 'ong':
             while True:
