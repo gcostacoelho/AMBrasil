@@ -1,6 +1,5 @@
 #Import resources
 from time import sleep
-from turtle import update
 import colorama
 from colorama import Fore
 #Import local files

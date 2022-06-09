@@ -89,22 +89,16 @@ def login():
                     sleep(3)
                     
         elif acao == 4: 
-
             admin = 'adm'
-            
             while True:
                 limpar()
                 print(Fore.CYAN + '-------LOGIN-------' + Fore.RESET)
                 logar = input('Login: ')
                 if admin == logar:
                     return 'adm'
-                    
                 else:  
                     print(Fore.RED + 'Incorreto')
                     sleep(2)   
-
-
-
 
 def menuUser():
     limpar()
@@ -169,47 +163,37 @@ if __name__ == '__main__':
     sleep(3)
 
     while True:
-        try:
-            login = login()
-            if login == 'sair': break
-            
-            elif login == 'comum':
-                while True:
-                    opcao = menuUser()
-                    if opcao == 0: break
-                    elif opcao == 1: funcUsers.inserir_denuncia()
-                    elif opcao == 2: Campanha_Doacao.view()
-                    elif opcao == 3: Contato_Emerg.view()
+        login = login()
+        if login == 'sair': break
+        
+        elif login == 'comum':
+            while True:
+                opcao = menuUser()
+                if opcao == 0: break
+                elif opcao == 1: funcUsers.inserir_denuncia()
+                elif opcao == 2: Campanha_Doacao.view()
+                elif opcao == 3: Contato_Emerg.view()
 
-            elif login == 'adm':
-                while True:
-                    opcao = menuAdm()
-                    if opcao == 0: break
-                    elif opcao == 1: funcADM.verUsuarios()
-                    #elif opcao == 2: Campanha_Doacao.view()
-                    #elif opcao == 3: Contato_Emerg.view()           
+        elif login == 'adm':
+            while True:
+                opcao = menuAdm()
+                if opcao == 0: break
+                elif opcao == 1: funcADM.verUsuarios()
+                #elif opcao == 2: Campanha_Doacao.view()
+                #elif opcao == 3: Contato_Emerg.view()           
 
-            elif login[0] == 'ong':
-                while True:
-                    opcao = menuOng()
-                    if opcao == 0: break
-                    elif opcao == 1: 
-                        funcOngs.inserirCampanha(login[1])
-                        input("Pressione <ENTER> para continuar...")
-                    elif opcao == 2: 
-                        funcOngs.visualizarCampanhas(login[1])
-                        input("Pressione <ENTER> para continuar...")
-                    elif opcao == 3:
-                        funcOngs.atualizarCampanha(login[1])
-                        input("Pressione <ENTER> para continuar...")
-                    elif opcao == 4:
-                        funcOngs.deletarCampanha(login[1])
-                        input("Pressione <ENTER> para continuar...")
-            else: break
-        except: 
-            print('Hmm, algo deu errado... Tente novamente mais tarde :(')
-            input()
-            break
+        elif login[0] == 'ong':
+            while True:
+                opcao = menuOng()
+                if opcao == 0: break
+                elif opcao == 1: 
+                    funcOngs.inserirCampanha(login[1])
+                elif opcao == 2: 
+                    funcOngs.visualizarCampanhas(login[1])
+                elif opcao == 3:
+                    funcOngs.atualizarCampanha(login[1])
+                elif opcao == 4:
+                    funcOngs.deletarCampanha(login[1])
         break
     
     print('Obrigado por usar o '+ Fore.GREEN + 'AMBrasil')
