@@ -102,6 +102,29 @@ class Campanha_Doacao:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
+    def search(ong="", titulo="", id="", verify=""):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("SELECT * FROM campanha WHERE id=? or titulo=? or ong=?;", (id, titulo, ong,))
+            rows = conecta.fetchall()
+            if verify==False:
+                print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
+                
+                for item in range(len(rows)): 
+                    print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
+            else:
+                for item in range(len(rows)): 
+                    if item != '':
+                        conecta.disconnect()
+                        return True
+        except Error as e: print(e)
+        else:
+            print(Fore.GREEN + "Pesquisa realizada com sucesso.")
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect()
+
+
     def update(ong, titulo, descricao, denuncia, meta, id):
         conecta = Conexao()
         conecta.connect()

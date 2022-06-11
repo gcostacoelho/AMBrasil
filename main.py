@@ -150,12 +150,13 @@ def menuOng():
     print(Fore.GREEN + 25 * '-')
     
     while True:
-        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n\t3-Atualizar uma campanha\n\t4-Excluir uma campanha\n"))
+        op = int(input("O que você deseja fazer\n\t0-Sair\n\t1-Registrar nova campanha\n\t2-Ver campanhas de doação\n\t3-Ver minhas campanhas\n\t4-Atualizar uma campanha\n\t5-Excluir uma campanha\n"))
         if op == 0: return op
         elif op == 1: return op
         elif op == 2: return op
         elif op == 3: return op
         elif op == 4: return op
+        elif op == 5: return op
         else:
             print(Fore.RED + 'Não tenho essa opção disponível')
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
@@ -198,15 +199,19 @@ if __name__ == '__main__':
         elif login[0] == 'ong':
             while True:
                 opcao = menuOng()
+
                 if opcao == 0: break
-                elif opcao == 1: 
-                    funcOngs.inserirCampanha(login[1])
+                elif opcao == 1: funcOngs.inserirCampanha(login[1])
                 elif opcao == 2: 
-                    funcOngs.visualizarCampanhas(login[1])
-                elif opcao == 3:
-                    funcOngs.atualizarCampanha(login[1])
-                elif opcao == 4:
-                    funcOngs.deletarCampanha(login[1])
+                    limpar()
+                    print(Fore.BLUE + '\n-------Campanhas de doação-------\n')                   
+                    Campanha_Doacao.view()
+                elif opcao == 3: 
+                    limpar()
+                    print(Fore.BLUE + '\n-------Minhas campanhas-------\n')
+                    Campanha_Doacao.search(login[1])
+                elif opcao == 4: funcOngs.atualizarCampanha(login[1])
+                elif opcao == 5: funcOngs.deletarCampanha(login[1]) 
         break
     
     print('Obrigado por usar o '+ Fore.GREEN + 'AMBrasil')
