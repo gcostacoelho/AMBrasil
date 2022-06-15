@@ -114,10 +114,13 @@ class Campanha_Doacao:
                 for item in range(len(rows)): 
                     print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
             else:
-                for item in rows: 
+                for item in rows:
                     if item != '':
                         conecta.disconnect()
                         return True
+                    else:
+                        conecta.disconnect()
+                        return False
         except Error as e: print(e)
         else:
             print(Fore.GREEN + "Pesquisa realizada com sucesso.")

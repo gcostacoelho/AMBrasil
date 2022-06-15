@@ -1,5 +1,6 @@
 import colorama
 from colorama import Fore
+from classes.func import Denuncia
 from classes.users import Admin, Ong
 
 
@@ -15,17 +16,16 @@ def verUsuarios():
     Admin.view_all_users()
     
 def delUsuario():
-    print(f'Deletar Usuario ' + Fore.RESET)
-    print(Fore.BLUE + '\n-------Deletar Campanhas-------\n\n\n')
+    print(Fore.BLUE + '\n-------Deletar Usuario-------\n\n\n')
     Admin.view_all_users()
-    try:
-        while True:
-            UserId = Admin.search_user(id)
-            break 
-    except:
-        print(Fore.RED + "Invalido" +Fore.RESET)
-        pass   
-    idUsuario = input( Fore.RESET +'\n\nDigite O id do Usuario para selecionar : ')
+ 
+    while True:
+        idUsuario = input( Fore.RESET +'\n\nDigite O id do Usuario para selecionar : ')
+        verdade = Admin.search_user(idUsuario)
+        if verdade :  break
+        else: 
+            print(Fore.RED + "Invalido" +Fore.RESET)
+            pass 
     Admin.delete_user(idUsuario)
     
 def addOngs():
@@ -91,3 +91,25 @@ def delCampanha():
     print(Fore.RED + "Invalido" +Fore.RESET) 
     idPostagem = input( Fore.RESET +'\n\nDigite O id da campanha para selecionar : ')
     Ong.delete(idPostagem)
+
+def verDenuncia():
+    print(f'Você está vendo todas as Denuncias ' + Fore.RESET)
+    print(25 * '-')
+    Denuncia.view()
+
+
+
+def updateDenuncia():
+    print(f'Você está vendo todos as Denuncias ' + Fore.RESET)
+    print(25 * '-')
+    Denuncia.view()
+    while True:
+        idenuncia = input( Fore.RESET +'\n\nDigite O id do Usuario para selecionar : ')
+        verdade = Admin.search_denuncia(idenuncia)
+        situacao = input( Fore.RESET +'\n\nDigite a situacao da Denuncia selecionada  : ')
+        if verdade :  break
+        else: 
+            print(Fore.RED + "ID Invalido" +Fore.RESET)
+            pass
+        
+    Admin.update_denuncia(situacao,idenuncia)

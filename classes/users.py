@@ -295,3 +295,29 @@ class Admin:
                         return rows[item][0]
             except Error as e: print(e)
             finally: conecta.disconnect()
+
+    def update_denuncia(sit,id):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("UPDATE denuncia SET situacao=?: WHERE id = ?;",(sit,id))
+            conecta.persist()
+        except Error as e: print(e)
+        else:
+            print(Fore.GREEN + 'Atualização feita com sucesso.')
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect() 
+
+    def search_denuncia(idD):
+            conecta = Conexao()
+            conecta.connect()
+            try:
+                conecta.execute("SELECT * FROM denuncia WHERE id=?;", (idD,))
+                rows = conecta.fetchall()
+
+                for item in range(len(rows)): 
+                    if item != '': 
+                        conecta.disconnect()
+                        return rows[item][0]
+            except Error as e: print(e)
+            finally: conecta.disconnect()
