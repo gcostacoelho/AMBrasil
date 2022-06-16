@@ -187,7 +187,19 @@ class Admin:
                     return rows[item][0]
         except Error as e: print(e)
         finally: conecta.disconnect()
-        
+
+
+    def update_user(nome, email, cpf,id):
+        conecta = Conexao()
+        conecta.connect()
+        try:
+            conecta.execute("UPDATE usuario SET nome=?, email=?, cpf=?: WHERE id = ?;",(nome, email, cpf,id))
+            conecta.persist()
+        except Error as e: print(e)
+        else:
+            print(Fore.GREEN + 'Atualização feita com sucesso.')
+            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
+        finally: conecta.disconnect() 
         
     def insert_ong(nome, cnpj, endereco, email, tel, bio):
         conecta = Conexao()

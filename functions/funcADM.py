@@ -3,17 +3,33 @@ from colorama import Fore
 from classes.func import Denuncia
 from classes.users import Admin, Ong
 
-
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
-
-
 
 def verUsuarios():
     """View de todos os usuarios"""
     print(f'Você está vendo todos os usuarios cadastrados ' + Fore.RESET)
     print(25 * '-')
     Admin.view_all_users()
+
+
+def update_usuario():
+    print(f'Você está vendo todos os usuarios ' + Fore.RESET)
+    print(25 * '-')
+    Admin.view_all_users()
+    while True:
+        iduser = input( Fore.RESET +'\n\nDigite O id do Usuario para selecionar : ')
+        verdade = Admin.search_user(iduser)
+        if verdade :  break
+        else: 
+            print(Fore.RED + "ID Invalido" +Fore.RESET)
+            pass
+    nome = input( Fore.RESET +'\n\nDigite O o nome do Usuario : ')
+    email = input( Fore.RESET +'\n\nDigite O email do Usuario : ')
+    cpf = input( Fore.RESET +'\n\nDigite O CPF do Usuario : ')
+
+    Admin.update_user(nome, email, cpf,iduser)
+
     
 def delUsuario():
     print(Fore.BLUE + '\n-------Deletar Usuario-------\n\n\n')
