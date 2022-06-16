@@ -143,7 +143,6 @@ class Ong:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-
 class Admin:
     def view_all_users():
         conecta = Conexao()

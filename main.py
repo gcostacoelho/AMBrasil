@@ -218,7 +218,7 @@ if __name__ == '__main__':
                 elif opcao == 3: 
                     limpar()
                     print(Fore.BLUE + '\n-------Minhas campanhas-------\n')
-                    Campanha_Doacao.search(login[1], "", "", False)
+                    Campanha_Doacao.search('', '', login[1])
                 elif opcao == 4: funcOngs.atualizarCampanha(login[1])
                 elif opcao == 5: funcOngs.deletarCampanha(login[1]) 
         break

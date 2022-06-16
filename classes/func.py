@@ -102,25 +102,30 @@ class Campanha_Doacao:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-    def search(ong="", titulo="", id="", verify=""):
+    def search(idCampanha='', titulo='', ong='', verify=False):
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM campanha WHERE id=? or titulo=? or ong=?;", (id, titulo, ong,))
-            rows = conecta.fetchall()
             if verify==False:
+                conecta.execute("SELECT * FROM campanha WHERE id=? or titulo=? or ong=?;", (idCampanha, titulo, ong,))
+                rows = conecta.fetchall()
+                
                 print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
                 
-                for item in range(len(rows)): 
+                for item in range(len(rows)):
                     print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
             else:
-                for item in rows:
+                conecta.execute("SELECT * FROM campanha WHERE id=? and ong=?;", (idCampanha, ong,))
+                rows = conecta.fetchall()
+                
+                for item in range(len(rows)): 
                     if item != '':
                         conecta.disconnect()
-                        return True
+                        return rows[item][0]
                     else:
                         conecta.disconnect()
                         return False
+
         except Error as e: print(e)
         else:
             print(Fore.GREEN + "Pesquisa realizada com sucesso.")
