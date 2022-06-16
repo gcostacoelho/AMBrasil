@@ -132,7 +132,6 @@ class Campanha_Doacao:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-
     def update(ong, titulo, descricao, denuncia, meta, id):
         conecta = Conexao()
         conecta.connect()

@@ -201,8 +201,8 @@ if __name__ == '__main__':
                 elif opcao == 5: funcADM.verOngs()
                 elif opcao == 6: funcADM.delOng()
 
-                elif opcao == 7: funcADM.verCampanhas()
-                elif opcao == 8: funcADM.verCampanha()
+                elif opcao == 7: Campanha_Doacao.view()
+                elif opcao == 8: funcADM.verCampanha_ong()
                 elif opcao == 9: funcADM.delCampanha()
 
                 elif opcao == 10: funcADM.verDenuncia()

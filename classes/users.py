@@ -193,7 +193,7 @@ class Admin:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("UPDATE usuario SET nome=?, email=?, cpf=?: WHERE id = ?;",(nome, email, cpf,id))
+            conecta.execute("UPDATE usuario SET nome=?, email=?, cpf=? WHERE id = ?;",(nome, email, cpf,id))
             conecta.persist()
         except Error as e: print(e)
         else:
@@ -273,31 +273,13 @@ class Admin:
                 print(Fore.GREEN + "Pesquisa realizada com sucesso em Campanhas.")
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
-        
-    def view_campanha(id):
-        print(Fore.BLUE + '\n--------Postagen--------\n')
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM campanha where id=?;")
-            
-            rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
-            
-            for item in range(len(rows)):
-                print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
-        except Error as e: print(e)
-        else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Campanhas.")
-                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
+               
         
     def serch_campanha(idong):
             conecta = Conexao()
             conecta.connect()
             try:
-                conecta.execute("SELECT * FROM campanha WHERE id=?;", (idong,))
+                conecta.execute("SELECT * FROM campanha WHERE ong=?;", (idong,))
                 rows = conecta.fetchall()
 
                 for item in range(len(rows)): 
@@ -311,7 +293,7 @@ class Admin:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("UPDATE denuncia SET situacao=?: WHERE id = ?;",(sit,id))
+            conecta.execute("UPDATE denuncia SET situacao=? WHERE id = ?;",(sit,id))
             conecta.persist()
         except Error as e: print(e)
         else:
