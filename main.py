@@ -4,7 +4,6 @@ from os import system
 from time import sleep
 import colorama
 from colorama import Fore
-import re
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
@@ -16,9 +15,12 @@ import schema
 #Import functions
 from functions import funcUsers, funcOngs
 from functions import funcADM
+from regexValid import valid
  
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
+
+###########################################################
 
 def criar_conexao():
     """Criando a conexão com o banco de dados Sqlite3."""
@@ -28,6 +30,7 @@ def criar_conexao():
     except Error as e:
         print(e)
 
+###########################################################
 def limpar():
     import os
     def limpar():
@@ -36,6 +39,7 @@ def limpar():
     sleep(1)
     limpar()
 
+###########################################################
 #Funções do programa
 def login():
     limpar()
@@ -80,21 +84,16 @@ def login():
                     print(Fore.RED + 'AVISO: ' + Fore.RESET + "Para cadastros de ONG é necessário entrar em contato com nosso suporte")
                     while True:
                         nome = input('Insira seu nome: ')
-                        reg = re.compile('[A-z]')
-                        resp = reg.findall(nome)
-                        if len(resp) > 1: 
-                            nomeV = ''.join(resp)
-                            break
+                        nomeV = valid(nome,'name')
+                        if nomeV: break
                         else: print(Fore.RED + 'Insira um nome válido' + Fore.RESET)
-                    
+
                     email = input('Insira um email válido: ')
+                    
                     while True:
                         cpf = input('Insira o seu CPF: ')
-                        reg = re.compile('[0-9]')
-                        resp = reg.findall(cpf)
-                        if len(resp) == 11: 
-                            cpfV = ''.join(resp)
-                            break
+                        cpfV = valid(cpf, 'cpf')
+                        if cpfV: break
                         else: print(Fore.RED + 'Insira um CPF válido' + Fore.RESET)
                     sucesso = Usuario.insert(nomeV, email, cpfV)
                     if sucesso: break
@@ -122,6 +121,8 @@ def login():
             print(Fore.RED + 'Insira apenas os inputs das opções mostradas' + Fore.RESET)
             sleep(2)
 
+###########################################################
+
 def menuUser():
     limpar()
     print(Fore.GREEN + 25 * '-')
@@ -144,6 +145,8 @@ def menuUser():
             limpar()
             print(Fore.RED + 'Insira apenas os inputs das opções mostradas' + Fore.RESET)
             sleep(2)
+
+###########################################################
 
 def menuAdm():
     limpar()
@@ -179,6 +182,8 @@ def menuAdm():
             print(Fore.RED + 'Insira apenas os inputs das opções mostradas' + Fore.RESET)
             sleep(2)
 
+###########################################################
+
 def menuOng():
     limpar()
     print(Fore.GREEN + 25 * '-')
@@ -200,12 +205,13 @@ def menuOng():
                 print(Fore.RED + 'Não tenho essa opção disponível')
                 print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
                 sleep(2)
-                limpar()
-                    
+                limpar()       
         except:
             limpar()
             print(Fore.RED + 'Insira apenas os inputs das opções mostradas' + Fore.RESET)
             sleep(2)
+
+###########################################################
 
 if __name__ == '__main__':
     criar_conexao()

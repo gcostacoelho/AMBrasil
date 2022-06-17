@@ -2,6 +2,7 @@
 from time import sleep
 import colorama
 from colorama import Fore
+
 #Import local files
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.func import Denuncia
@@ -11,6 +12,7 @@ from Api.request import buscaCEP
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
 
+###########################################################
 def inserir_denuncia():
     limpar()
 
