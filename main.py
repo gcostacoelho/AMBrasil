@@ -8,7 +8,7 @@ from colorama import Fore
 
 #Import classes
 from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
-from classes.func import Campanha_Doacao,Contato_Emerg
+from classes.func import Campanha_Doacao,Contato_Emerg, Denuncia
 from classes.users import Usuario, Ong, Admin
 from classes.conexao import Conexao
 import schema
@@ -124,10 +124,10 @@ def menuAdm():
     print(BOLD + Fore.YELLOW + '--------' + Fore.GREEN + 'AMBRASIL' + Fore.YELLOW + '---------')
     print(Fore.GREEN + 25 * '-')
     while True:
-        print('O que você deseja fazer\n\n\t'+Fore.GREEN+'------------Usuario-----------'+Fore.RESET +'\n\t0-Sair\n\t1-Ver uma lista com todos os Usuarios cadastrados\n\t2-Atualizar cadastro de usuario\n\t3-Deletar um usuario do Banco')
-        print("\n\t"+Fore.GREEN+"------------Ong-----------"+Fore.RESET+"\n\t4-Cadastrar Ong no Sistema\n\t5-Ver uma lista com todos as Ongs cadastradas no Sistema\n\t6-Deletar uma Ong cadastrada no Sistema")
-        print("\n\t"+Fore.GREEN+"------------Campanha-----------"+Fore.RESET+"\n\t7-Visualizar Campanhas no Sistema\n\t8-Visualizar Campanhas de uma determinada Ong no Sistema\n\t9-Deletar uma Campanha cadastrada no Sistema")
-        print("\n\t"+Fore.GREEN+"------------Triagem-----------"+Fore.RESET+"\n\t10-Ver Denuncias\n\t11-Fazer triagem de Denuncias ")
+        print('O que você deseja fazer\n\n\t'+Fore.GREEN+'------------Usuario-----------'+Fore.RESET +'\n\t0-Sair\n\t1-Ver uma lista com todos os Usuarios cadastrados\n\t2-Deletar um usuario do Banco')
+        print("\n\t"+Fore.GREEN+"------------Ong-----------"+Fore.RESET+"\n\t3-Cadastrar Ong no Sistema\n\t4-Ver uma lista com todos as Ongs cadastradas no Sistema\n\t5-Deletar uma Ong cadastrada no Sistema")
+        print("\n\t"+Fore.GREEN+"------------Campanha-----------"+Fore.RESET+"\n\t6-Visualizar Campanhas no Sistema\n\t7-Visualizar Campanhas de uma determinada Ong no Sistema\n\t8-Deletar uma Campanha cadastrada no Sistema")
+        print("\n\t"+Fore.GREEN+"------------Triagem-----------"+Fore.RESET+"\n\t9-Ver Denuncias\n\t10-Fazer triagem de Denuncias ")
         op = int(input("\t: "))
         if op == 0: return op
         elif op == 1: return op
@@ -140,7 +140,6 @@ def menuAdm():
         elif op == 8: return op
         elif op == 9: return op
         elif op == 10: return op
-        elif op == 11: return op
         else:
             print(Fore.RED + 'Não tenho essa opção disponível')
             print(BOLD + 'Por favor selecione apenas as que aparecem no menu')
@@ -193,20 +192,19 @@ if __name__ == '__main__':
             while True:
                 opcao = menuAdm()
                 if opcao == 0: break
-                elif opcao == 1: funcADM.verUsuarios()
-                elif opcao == 2: funcADM.update_usuario()
-                elif opcao == 3: funcADM.delUsuario()
+                elif opcao == 1: Usuario.view()
+                elif opcao == 2: funcADM.delUsuario()
 
-                elif opcao == 4: funcADM.addOngs()
-                elif opcao == 5: funcADM.verOngs()
-                elif opcao == 6: funcADM.delOng()
+                elif opcao == 3: funcADM.addOngs()
+                elif opcao == 4: Ong.view()
+                elif opcao == 5: funcADM.delOng()
 
-                elif opcao == 7: Campanha_Doacao.view()
-                elif opcao == 8: funcADM.verCampanha_ong()
-                elif opcao == 9: funcADM.delCampanha()
+                elif opcao == 6: Campanha_Doacao.view()
+                elif opcao == 7: funcADM.verCampanha_ong()
+                elif opcao == 8: funcADM.delCampanha()
 
-                elif opcao == 10: funcADM.verDenuncia()
-                elif opcao == 11: funcADM.updateDenuncia()     
+                elif opcao == 9:  Denuncia.view()
+                elif opcao == 10: funcADM.updateDenuncia()     
 
         elif login[0] == 'ong':
             while True:

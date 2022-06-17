@@ -49,11 +49,11 @@ class Usuario:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-    def search(cpf=""):
+    def search(cpf="", id=""):
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM usuario WHERE cpf=?;", (cpf,))
+            conecta.execute("SELECT * FROM usuario WHERE cpf=? or id=?;", (cpf, id))
             rows = conecta.fetchall()
 
             for item in rows: 
@@ -117,11 +117,11 @@ class Ong:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
-    def search(cnpj=""):
+    def search(cnpj="", id=''):
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM ong WHERE cnpj=?;", (cnpj,))
+            conecta.execute("SELECT * FROM ong WHERE cnpj=? or id=?;", (cnpj, id))
             rows = conecta.fetchall()
 
             for item in range(len(rows)): 
@@ -144,137 +144,6 @@ class Ong:
         finally: conecta.disconnect()
 
 class Admin:
-    def view_all_users():
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM usuario;")
-            
-            rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<50} {:<12} ".format("ID", "nome", "email", "cpf"))
-            
-            for item in range(len(rows)):
-                print("{:<5} {:<20} {:<50} {:<12} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3]))
-        except Error as e: print(e)
-        else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Usuarios.")
-                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
-        
-    def delete_user(id):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("DELETE FROM usuario WHERE id=?;", (id,))
-            conecta.persist()
-        except Error as e: print(e)
-        else:
-            print(Fore.GREEN + "Descadastro de usuário realizado com sucesso")
-            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
-    def search_user(id=""):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM usuario WHERE id=?;", (id,))
-            rows = conecta.fetchall()
-
-            for item in range(len(rows)): 
-                if item != '': 
-                    conecta.disconnect()
-                    return rows[item][0]
-        except Error as e: print(e)
-        finally: conecta.disconnect()
-
-
-    def update_user(nome, email, cpf,id):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("UPDATE usuario SET nome=?, email=?, cpf=? WHERE id = ?;",(nome, email, cpf,id))
-            conecta.persist()
-        except Error as e: print(e)
-        else:
-            print(Fore.GREEN + 'Atualização feita com sucesso.')
-            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect() 
-        
-    def insert_ong(nome, cnpj, endereco, email, tel, bio):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("INSERT INTO ong (nome, email, cnpj, endereco, tel, bio) VALUES (?,?,?,?,?,?)", (nome, cnpj, endereco, email, tel, bio,))
-            conecta.persist()
-        except Error as e: print(e)
-        else:             
-            print(Fore.GREEN + "Registro feito com sucesso.")
-            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
-    def view_all_ongs():
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM ong;")
-            
-            rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<50} {:<20} ".format("ID", "nome", "endereco", "email"))
-            
-            for item in range(len(rows)):
-                print("{:<5} {:<20} {:<50} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3]))
-        except Error as e: print(e)
-        else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Ongs.")
-                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
-    def search_ong(id=""):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM ong WHERE id=?;", (id,))
-            rows = conecta.fetchall()
-
-            for item in range(len(rows)): 
-                if item != '': 
-                    conecta.disconnect()
-                    return rows[item][0]
-        except Error as e: print(e)
-        finally: conecta.disconnect()
-        
-    def delete_ong(id):
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("DELETE FROM ong WHERE id=?;", (id,))
-            conecta.persist()
-        except Error as e: print(e)
-        else:
-            print(Fore.GREEN + "Descadastro de Ong realizado com sucesso")
-            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-        
-    def view_all_campanha():
-        print(Fore.BLUE + '\n-------Postagens/Campanhas-------\n')
-        conecta = Conexao()
-        conecta.connect()
-        try:
-            conecta.execute("SELECT * FROM campanha;")
-            
-            rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
-            
-            for item in range(len(rows)):
-                print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
-        except Error as e: print(e)
-        else: 
-                print(Fore.GREEN + "Pesquisa realizada com sucesso em Campanhas.")
-                input(Fore.BLUE + "Pressione <ENTER> para continuar...")
-        finally: conecta.disconnect()
-               
-        
     def serch_campanha(idong):
             conecta = Conexao()
             conecta.connect()
@@ -300,17 +169,3 @@ class Admin:
             print(Fore.GREEN + 'Atualização feita com sucesso.')
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect() 
-
-    def search_denuncia(idD):
-            conecta = Conexao()
-            conecta.connect()
-            try:
-                conecta.execute("SELECT * FROM denuncia WHERE id=?;", (idD,))
-                rows = conecta.fetchall()
-
-                for item in range(len(rows)): 
-                    if item != '': 
-                        conecta.disconnect()
-                        return rows[item][0]
-            except Error as e: print(e)
-            finally: conecta.disconnect()
