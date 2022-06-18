@@ -1,7 +1,9 @@
+from time import sleep
 import colorama
 from colorama import Fore
 from classes.func import Denuncia, Campanha_Doacao 
 from classes.users import Admin, Ong, Usuario
+from valid import validRegex, validInput
 
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
@@ -11,7 +13,7 @@ def delUsuario():
     Usuario.view()
  
     while True:
-        idUsuario = input( Fore.RESET +'\n\nDigite O id do Usuario para selecionar : ')
+        idUsuario = input( Fore.RESET +'\n\nDigite o id do Usuario para selecionar : ')
         verdade = Usuario.search("", idUsuario)
         if verdade:
             Usuario.delete(idUsuario)
@@ -21,17 +23,47 @@ def delUsuario():
             pass
     
 def addOngs():
-        print(Fore.GREEN+'Registro de nova Ong'+ Fore.RESET)
-        print(Fore.RED + 'AVISO: ' + Fore.RESET + "Funcao exclusiva para Adminstradores")
-        
-        nome = input('Insira nome da Ong: ')
-        email = input('Insira um email válido: ')
-        cnpj = input('Insira o cnpj: ')
-        endereco = input('Insira o Endereco: ')
-        tel = input('Insira o Telefone de contato: ')
-        bio = input("Digite a Biografia :")
+    print(Fore.GREEN+'Registro de nova Ong'+ Fore.RESET)
+    print(Fore.RED + 'AVISO: ' + Fore.RESET + "Funcao exclusiva para Adminstradores")
+    while True:
+        try:
+            while True:
+                nome = input('Insira nome da Ong: ')
+                nomeV = validRegex(nome,'name')
+                if nomeV: break
+                else: print(Fore.RED + 'Insira um nome válido' + Fore.RESET)
+            
+            while True:
+                cnpj = input('Insira o cnpj: ')
+                cnpjV = validRegex(cnpj, 'cnpj')
+                if cnpjV: break
+                else: print(Fore.RED + 'Insira um CNPJ válido' + Fore.RESET)
+            
+            while True:
+                email = input('Insira um email válido: ')
+                emailV = validInput(email)
+                if emailV: break
+            
+            while True:
+                endereco = input('Insira o Endereco: ')
+                enderecoV = validInput(endereco)
+                if enderecoV: break
 
-        Ong.insert(nome, cnpj, endereco, email, tel, bio)
+            while True:
+                tel = input('Insira o Telefone de contato: ')
+                telV = validInput(tel)
+                if telV: break
+
+            while True:
+                bio = input("Digite a Biografia :")
+                bioV = validInput(bio)
+                if bioV: break
+        except:
+            print('Aconteceu algo de errado, por favor tente novamente')
+            sleep(2)
+        else:
+            Ong.insert(nomeV, cnpjV, endereco, email, tel, bio)
+            break
 
 def delOng():
     print(f'Deletar Ong ' + Fore.RESET)

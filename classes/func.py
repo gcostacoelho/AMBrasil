@@ -29,9 +29,6 @@ class Denuncia:
             conecta.execute("INSERT INTO denuncia (nomeDenuncia, telContato, tipoDesastre, classificacao, situacao) VALUES (?,?,?,?,?)", (nomeDenuncia, telContato, tipoDesastre, classificacao, situacao,))
             conecta.persist()
         except Error as e: print(e)
-        else:             
-            print(Fore.GREEN + "Registro feito com sucesso.")
-            input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
     def update(nomeDenuncia, telContato, tipoDesastre, classificacao, situacao, id):

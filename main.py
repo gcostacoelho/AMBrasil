@@ -15,7 +15,7 @@ import schema
 #Import functions
 from functions import funcUsers, funcOngs
 from functions import funcADM
-from regexValid import valid
+from valid import validRegex, validInput
  
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
@@ -84,15 +84,18 @@ def login():
                     print(Fore.RED + 'AVISO: ' + Fore.RESET + "Para cadastros de ONG é necessário entrar em contato com nosso suporte")
                     while True:
                         nome = input('Insira seu nome: ')
-                        nomeV = valid(nome,'name')
+                        nomeV = validRegex(nome,'name')
                         if nomeV: break
                         else: print(Fore.RED + 'Insira um nome válido' + Fore.RESET)
-
-                    email = input('Insira um email válido: ')
                     
                     while True:
+                        email = input('Insira um email válido: ')
+                        emailV = validInput(email)
+                        if emailV: break
+                        
+                    while True:
                         cpf = input('Insira o seu CPF: ')
-                        cpfV = valid(cpf, 'cpf')
+                        cpfV = validRegex(cpf, 'cpf')
                         if cpfV: break
                         else: print(Fore.RED + 'Insira um CPF válido' + Fore.RESET)
                     sucesso = Usuario.insert(nomeV, email, cpfV)
@@ -228,6 +231,8 @@ if __name__ == '__main__':
         elif login == 'comum':
             while True:
                 opcao = menuUser()
+                limpar()
+                
                 if opcao == 0: break
                 elif opcao == 1: funcUsers.inserir_denuncia()
                 elif opcao == 2: Campanha_Doacao.view()
@@ -236,6 +241,8 @@ if __name__ == '__main__':
         elif login == 'adm':
             while True:
                 opcao = menuAdm()
+                limpar()
+                
                 if opcao == 0: break
                 elif opcao == 1: Usuario.view()
                 elif opcao == 2: funcADM.delUsuario()
@@ -254,7 +261,8 @@ if __name__ == '__main__':
         elif login[0] == 'ong':
             while True:
                 opcao = menuOng()
-
+                limpar()
+                
                 if opcao == 0: break
                 elif opcao == 1: funcOngs.inserirCampanha(login[1])
                 elif opcao == 2: 

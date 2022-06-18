@@ -8,6 +8,7 @@ from classes.desastres import Tipo_Desastre, Tipo_Local, Classificacao
 from classes.func import Denuncia
 from main import limpar
 from Api.request import buscaCEP
+from valid import validInput
 
 colorama.init(autoreset='true')
 BOLD = '\033[1m'
@@ -16,26 +17,32 @@ BOLD = '\033[1m'
 def inserir_denuncia():
     limpar()
 
-    """Inserir denúncia"""
     print(f'Você está inserindo uma ' + Fore.RED + BOLD + 'denúncia' + Fore.RESET)
     print(25 * '-')
-    denuncia = input('Nome da denúncia ' + Fore.RED + '(Ex: Enchente no centro da cidade)' + Fore.RESET + ': ')
-    
+    while True:
+        denuncia = input('Nome da denúncia ' + Fore.RED + '(Ex: Enchente no centro da cidade)' + Fore.RESET + ': ')
+        denunciaV = validInput(denuncia)
+        if denunciaV: break
+
     contato = input('Insira um telefone para um possível contato: ')
     
     Tipo_Desastre.view()
     while True:
-        tipoDesastre = int(input(Fore.RESET + '\nDentre esses tipos de desastres, qual é o que está ocorrendo ' + Fore.RED + '(Digite apenas o número)' + Fore.RESET + ': '))
-        valido = Tipo_Desastre.search(tipoDesastre)
-        if valido: break
-        else: print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
+        try:
+            tipoDesastre = int(input(Fore.RESET + '\nDentre esses tipos de desastres, qual é o que está ocorrendo ' + Fore.RED + '(Digite apenas o número)' + Fore.RESET + ': '))
+            valido = Tipo_Desastre.search(tipoDesastre)
+            if valido: break
+            else: print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
+        except: print(Fore.RED + 'Por favor, insira a informação corretamente' + Fore.RESET)
     
     Classificacao.view()
     while True:
-        classificacao = int(input(Fore.RESET + '\nDentre as classificações mostradas, qual está ocorrendo ' + Fore.RED + '(Digite apenas o número)' + Fore.RESET + ': '))
-        valido = Classificacao.search(classificacao)
-        if valido: break
-        else:  print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
+        try:
+            classificacao = int(input(Fore.RESET + '\nDentre as classificações mostradas, qual está ocorrendo ' + Fore.RED + '(Digite apenas o número)' + Fore.RESET + ': '))
+            valido = Classificacao.search(classificacao)
+            if valido: break
+            else:  print(Fore.RED + 'Inválido... Insira apenas a opção certa' + Fore.RESET)
+        except: print(Fore.RED + 'Por favor, insira a informação corretamente' + Fore.RESET)
 
     Denuncia.insert(denuncia, contato, tipoDesastre, classificacao)
     
@@ -58,11 +65,22 @@ def inserir_denuncia():
                         Tipo_Local.insert(dados[0], dados[1], dados[2], cep, idDenuncia)
                         break                 
                     elif correto == 'n':
-                        cep = input(Fore.RESET + 'Insira o CEP do local: ')
-                        cidade = input('Insira o nome da cidade: ')
-                        sigla = input('Insira a sigla do estado: ')
-                        logradouro = input('Insira o logradouro: ')
-
+                        while True:
+                            cep = input(Fore.RESET + 'Insira o CEP do local: ')
+                            cepV = validInput(cep)
+                            if cepV: break
+                        while True:
+                            cidade = input('Insira o nome da cidade: ')
+                            cidadeV = validInput(cidade)
+                            if cidadeV: break
+                        while True:
+                            sigla = input('Insira a sigla do estado: ')
+                            siglaV = validInput(sigla)
+                            if siglaV: break
+                        while True:
+                            logradouro = input('Insira o logradouro: ')
+                            logV = validInput(logradouro)
+                            if logV: break
                         idDenuncia=Denuncia.search("", denuncia)
                         Tipo_Local.insert(sigla, cidade, logradouro, cep, idDenuncia)
                         break
