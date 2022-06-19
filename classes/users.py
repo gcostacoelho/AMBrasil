@@ -11,12 +11,14 @@ class Usuario:
         conecta.connect()
         try:
             conecta.execute("SELECT * FROM usuario;")
-            
+        
             rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<50} {:<11}".format("ID", "Nome", "Email", "CPF"))
-            
             for item in range(len(rows)):
-                print("{:<5} {:<20} {:<50} {:<11}".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3]))
+                print(Fore.GREEN +'ID: ' + Fore.RESET + f'{rows[item][0]}')
+                print(Fore.GREEN +'Nome: ' + Fore.RESET + f'{rows[item][1]}')
+                print(Fore.GREEN +'Email: ' + Fore.RESET + f'{rows[item][2]}')
+                print(Fore.GREEN +'CPF: ' + Fore.RESET + f'{rows[item][3]}')
+                print(Fore.YELLOW + 25 * '-')
         
         except Error as e: print(e)
         else: 
@@ -83,10 +85,15 @@ class Ong:
             conecta.execute("SELECT * FROM ong;")
             
             rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<50} {:<11} {:<40} {:<30} {:22}".format("ID", "Nome", "Cnpj", "Endereço","Email","telefone","biografia"))
-            
             for item in range(len(rows)):
-                print("{:<5} {:<20} {:<50} {:<11} {:<40} {:<30} {:22}".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5], rows[item][6]))
+                print(Fore.GREEN +'ID: ' + Fore.RESET + f'{rows[item][0]}')
+                print(Fore.GREEN +'Nome: ' + Fore.RESET + f'{rows[item][1]}')
+                print(Fore.GREEN +'CNPJ: ' + Fore.RESET + f'{rows[item][2]}')
+                print(Fore.GREEN +'Endereço: ' + Fore.RESET + f'{rows[item][3]}')
+                print(Fore.GREEN +'Email: ' + Fore.RESET + f'{rows[item][4]}')
+                print(Fore.GREEN +'Telefone: ' + Fore.RESET + f'{rows[item][5]}')
+                print(Fore.GREEN +'Descrição: ' + Fore.RESET + f'{rows[item][6]}')
+                print(Fore.YELLOW + 25 * '-')
         except Error as e: print(e)
         else: 
                 print(Fore.GREEN + "Pesquisa realizada com sucesso em Ong.")

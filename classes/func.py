@@ -10,13 +10,16 @@ class Denuncia:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM denuncia;")
-            
+            conecta.execute("SELECT d.id, d.nomeDenuncia, d.telContato, td.descricao, c.descricao, d.situacao from denuncia d inner join tipoDesastre td on td.id = d.tipoDesastre inner join classificacao c on c.id = d.classificacao;")
             rows = conecta.fetchall()
-            print("{:<5} {:<40} {:<20} {:<15} {:<20} {:<20} ".format("ID", "nomeDenuncia", "telContato", "tipoDesastre","classificacao","situacao"))
-            
             for item in range(len(rows)):
-                print("{:<5} {:<40} {:<20} {:<15} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
+                print(Fore.GREEN +'ID: ' + Fore.RESET + f'{rows[item][0]}')
+                print(Fore.GREEN +'Denúncia: ' + Fore.RESET + f'{rows[item][1]}')
+                print(Fore.GREEN +'Telefone: ' + Fore.RESET + f'{rows[item][2]}')
+                print(Fore.GREEN +'Tipo de desastre: ' + Fore.RESET + f'{rows[item][3]}')
+                print(Fore.GREEN +'Classificação: ' + Fore.RESET + f'{rows[item][4]}')
+                print(Fore.GREEN +'Situação: ' + Fore.RESET + f'{rows[item][5]}')
+                print(Fore.YELLOW + 25 * '-')
         except Error as e: print(e)
         else:
                 input(Fore.BLUE + "Pressione <ENTER> para continuar...")
@@ -74,13 +77,18 @@ class Campanha_Doacao:
         conecta = Conexao()
         conecta.connect()
         try:
-            conecta.execute("SELECT * FROM campanha;")
+            conecta.execute("SELECT c.id, o.nome, c.titulo, c.descricao, d.nomeDenuncia, c.meta from campanha c inner join ong o on o.id = c.ong inner join denuncia d on d.id = c.denuncia; ")
             
             rows = conecta.fetchall()
-            print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
-            
             for item in range(len(rows)):
-                print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
+                print(Fore.GREEN +'ID: ' + Fore.RESET + f'{rows[item][0]}')
+                print(Fore.GREEN +'Ong: ' + Fore.RESET + f'{rows[item][1]}')
+                print(Fore.GREEN +'Titulo: ' + Fore.RESET + f'{rows[item][2]}')
+                print(Fore.GREEN +'Descrição ' + Fore.RESET + f'{rows[item][3]}')
+                print(Fore.GREEN +'Denúnica: ' + Fore.RESET + f'{rows[item][4]}')
+                print(Fore.GREEN +'Meta: ' + Fore.RESET + f'{rows[item][5]}')
+                print(Fore.YELLOW + 25 * '-')
+
         except Error as e: print(e)
         else: 
                 print(Fore.GREEN + "Pesquisa realizada com sucesso em Campanhas.")
@@ -104,13 +112,16 @@ class Campanha_Doacao:
         conecta.connect()
         try:
             if verify==False:
-                conecta.execute("SELECT * FROM campanha WHERE id=? or titulo=? or ong=?;", (idCampanha, titulo, ong,))
+                conecta.execute("SELECT c.id, o.nome, c.titulo, c.descricao, d.nomeDenuncia, c.meta from campanha c inner join ong o on o.id = c.ong inner join denuncia d on d.id = c.denuncia WHERE c.id=? or c.titulo=? or o.id=?;", (idCampanha, titulo, ong,))
                 rows = conecta.fetchall()
-                
-                print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format("ID", "ong", "titulo", "descricao","denuncia","meta"))
-                
                 for item in range(len(rows)):
-                    print("{:<5} {:<20} {:<20} {:<40} {:<20} {:<20} ".format(rows[item][0], rows[item][1], rows[item][2], rows[item][3], rows[item][4], rows[item][5]))
+                    print(Fore.GREEN +'ID: ' + Fore.RESET + f'{rows[item][0]}')
+                    print(Fore.GREEN +'Ong: ' + Fore.RESET + f'{rows[item][1]}')
+                    print(Fore.GREEN +'Titulo: ' + Fore.RESET + f'{rows[item][2]}')
+                    print(Fore.GREEN +'Descrição ' + Fore.RESET + f'{rows[item][3]}')
+                    print(Fore.GREEN +'Denúnica: ' + Fore.RESET + f'{rows[item][4]}')
+                    print(Fore.GREEN +'Meta: ' + Fore.RESET + f'{rows[item][5]}')
+                    print(Fore.YELLOW + 25 * '-')
             else:
                 conecta.execute("SELECT * FROM campanha WHERE id=? and ong=?;", (idCampanha, ong,))
                 rows = conecta.fetchall()
