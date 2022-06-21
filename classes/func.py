@@ -72,6 +72,8 @@ class Denuncia:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
+###########################################################
+
 class Campanha_Doacao:
     def view():
         conecta = Conexao()
@@ -163,6 +165,8 @@ class Campanha_Doacao:
             print(Fore.GREEN + "Descadastro de Campanhas realizado com sucesso")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
+
+###########################################################
 
 class Contato_Emerg:
     def view():

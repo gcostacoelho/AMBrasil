@@ -72,6 +72,7 @@ class Tipo_Desastre:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
+###########################################################
 
 class Tipo_Local:
     def view():
@@ -127,6 +128,7 @@ class Tipo_Local:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
+###########################################################
 
 class Classificacao:
     def view():

@@ -77,6 +77,8 @@ class Usuario:
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
 
+###########################################################
+
 class Ong:
     def view():
         conecta = Conexao()
@@ -149,6 +151,8 @@ class Ong:
             print(Fore.GREEN + "Descadastro de usuário realizado com sucesso")
             input(Fore.BLUE + "Pressione <ENTER> para continuar...")
         finally: conecta.disconnect()
+
+###########################################################
 
 class Admin:
     def serch_campanha(idong):
