@@ -39,7 +39,3 @@ Com o arquivo no diretório, insira os comando abaixo:
 pip install -r requirements.txt
 ```
 Após a instalação ser concluída você já poderá rodar o programa com o seguinte código ```python main.py```.
-
-
-***
->Projeto ainda em desenvolvimento :)
