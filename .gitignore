@@ -1,1 +1,6 @@
+#Virtual environment
 env/
+venv/
+#Others
+.vscode/
+__pycache__/
